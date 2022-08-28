@@ -1,0 +1,22 @@
+{% extends 'layouts/auth-layout.html' %}
+{% block content %}
+<form action="" method="post">
+    {{form.hidden_tag()}}
+    <div class="form-group mb-3">
+        <label for="">{{form.email.label}}</label>
+        {{form.email(class='form-control form-control-custom rounded', placeholder='Enter your email')}}
+        {% for error in form.email.errors %}
+            <small class="text-danger">{{ error }}</small>
+        {% endfor %}
+    </div>
+    <div class="form-group mb-3">
+        <label for="">{{form.password.label}}</label>
+        {{form.password(class='form-control rounded', placeholder='Password')}}
+        {% for error in form.password.errors %}
+            <small class="text-danger">{{ error }}</small>
+        {% endfor %}
+    </div>
+    {{form.submit(class='btn btn-info btn-block rounded mb-2')}}
+</form>
+<a class="btn btn-light btn-block rounded border" href="{{url_for('auth.register')}}">Register</a>
+{% endblock content %}

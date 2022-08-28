@@ -1,0 +1,161 @@
+{% extends 'layouts/main-layout.html' %}
+{% block content %}
+
+<!-- details page -->
+<section class="single section-sm pb-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="card rounded shadow-sm mb-3 text-center">
+                    <div class="card-body">
+                        <h3 class="mb-3">
+                            {{user.username}}'s Profile
+                        </h3>
+                        <div class="mb-3">
+                            <img src="https://randomuser.me/api/portraits/men/15.jpg" class="rounded" alt="...">
+                        </div>
+                        <h5>{{user.full_name}} <span class="badge badge-info">{{user_profile.status}}</span></h5> 
+                        <div>
+                            <p>
+                                {{user_profile.bio}}
+                            </p>
+                        </div>
+                        {% if user_profile.skills %}
+                            {% for skill in user_profile.skills %}
+                                <span class="badge badge-primary"><a class="text-light" href="{{url_for('auth.index', skill=skill)}}">{{skill}}</a></span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card rounded shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <h4 class="mb-3">Work Experience</h4>
+                            {% if current_user.id == user.id %}
+                                <i class="fas fa-plus" data-toggle="modal" data-target="#experienceModal"></i>
+                                {% include 'user/experience-modal.html' %}
+                            {% endif %}
+                        </div>
+                        <div class="list-group">
+                            {% if experience %}
+                                {% for exp in experience %}
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">{{exp.title}}</h5>
+                                            {% if current_user.id == user.id %}
+                                                <small><a href="{{url_for('user.edit_experience', id=exp.id)}}"><i class="fas fa-pencil-alt"></i></a></small>
+                                            {% endif %}
+                                        </div>
+                                        <p class="mb-1">{{exp.organization}}</p>
+                                        <small class="text-muted">from {{exp.start_date}} to {% if exp.end_date %}{{exp.end_date}}{% else %}Present{% endif %}</small>
+                                    </div>
+                                {% endfor %}
+                                <div class="clearfix mt-2">
+                                    <small><a href="{{url_for('user.experiences', user_id=user.id)}}" class="float-right">Show all</a></small>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="card rounded shadow-sm">
+                    <div class="card-body">
+                        {% if current_user.id == user.id %}
+                        <h3 class="mb-5">Update Profile</h3>
+                        <div class="container">
+                            <form action="" method="post">
+                                {{form.hidden_tag()}}
+                                <div class="form-group mb-3">
+                                    <label for="">{{form.full_name.label}}</label>
+                                    {{form.full_name(class='form-control rounded', placeholder='Enter your name')}}
+                                    {% for error in form.full_name.errors %}
+                                        <small class="text-danger">{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="">{{form.email.label}}</label>
+                                    {{form.email(class='form-control rounded', placeholder='Enter your email')}}
+                                    {% for error in form.email.errors %}
+                                        <small class="text-danger">{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="">{{form.username.label}}</label>
+                                    {{form.username(class='form-control rounded', placeholder='Enter your username')}}
+                                    {% for error in form.username.errors %}
+                                        <small class="text-danger">{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="">{{form.skills.label}}</label>
+                                    {{form.skills(class='form-control rounded selectpicker', id='skills')}}
+                                    {% for error in form.skills.errors %}
+                                        <small class="text-danger">{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="">{{form.bio.label}}</label>
+                                    {{form.bio(class='form-control rounded', placeholder='Enter your bio')}}
+                                    {% for error in form.bio.errors %}
+                                        <small class="text-danger">{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="">{{form.status.label}}</label>
+                                    {{form.status(class='form-control rounded selectpicker')}}
+                                    {% for error in form.status.errors %}
+                                        <small class="text-danger">{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                                {{form.submit(class='btn btn-primary btn-block rounded')}}
+                            </form>
+                        </div>
+                        {% else %}
+                        <h5 class="mb-3">Message {{user.username}}</h5>
+                        <div class="card">
+                            <div class="card-body pt-4 bg-grey chat-area">
+                                <div class="chat-content">
+                                    {% for message in messages %}
+                                    <div class="chat {% if message.receiver_id == current_user.id %}chat-left{% endif %}">
+                                        <div class="chat-body">
+                                            <div class="chat-message">
+                                                {{message.message}}
+                                                <br>
+                                                <sub class="text-light">{{message.__createdtime__}}</sub>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <form action="{{url_for('user.send_message', user_id=user.id)}}" method="post" class="form-row">
+                                    {{c_form.hidden_tag()}}
+                                    {{c_form.message(class="form-control", placeholder="Enter your message")}}
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+<!-- /details page -->
+{% endblock content %}
+
+{% block js %}
+<script>
+    $('#skills').attr("data-live-search","true");
+
+    $('#current').change(function(){
+        if ($('#current').is(':checked') == true){
+            $('#end-date').prop('disabled', true);
+        } else {
+            $('#end-date').prop('disabled', false);
+        }
+    });
+</script>
+{% endblock js %}

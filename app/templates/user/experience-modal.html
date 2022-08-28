@@ -1,0 +1,56 @@
+<div class="modal" id="experienceModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-dark">
+        <h5 class="modal-title text-light text-center" id="exampleModalLabel">Add Experience</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{{url_for('user.add_experience')}}" method="post">
+          {{e_form.hidden_tag()}}
+          <div class="form-group mb-3">
+            <label class="col-form-label">{{e_form.title.label}}</label>
+            {{e_form.title(class='form-control', placeholder='Title')}}
+            {% for error in e_form.title.errors %}
+              <small class="text-danger">{{ error }}</small>
+            {% endfor %}
+          </div>
+          <div class="form-group mb-3">
+              <label class="col-form-label">{{e_form.organization.label}}</label>
+              {{e_form.organization(class='form-control', placeholder='Organization')}}
+              {% for error in e_form.organization.errors %}
+                <small class="text-danger">{{ error }}</small>
+              {% endfor %}
+          </div>
+          <div class="row mb-3">
+            <div class="col">
+                <div class="form-group">
+                    <label class="col-form-label">{{e_form.start_date.label}}</label>
+                    {{e_form.start_date(class='form-control')}}
+                    {% for error in e_form.start_date.errors %}
+                      <small class="text-danger">{{ error }}</small>
+                    {% endfor %}
+                </div>     
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label class="col-form-label">{{e_form.end_date.label}}</label>
+                    {{e_form.end_date(class='form-control', id='end-date')}}
+                    {% for error in e_form.end_date.errors %}
+                      <small class="text-danger">{{ error }}</small>
+                    {% endfor %}
+                </div>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            {{e_form.current(id='current')}}
+            <label class="col-form-label">{{e_form.current.label}}</label>
+          </div>
+          {{e_form.submit(class='btn btn-primary btn-block')}}     
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

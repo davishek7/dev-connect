@@ -1,0 +1,52 @@
+{% extends 'layouts/main-layout.html' %}
+{% block content %}
+<!-- topics -->
+<section class="section">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-12 text-center">
+				<h2 class="section-title">{% if search_term %}{{result_count}} result{% if result_count> 1 %}s{% endif %} found for {{ search_term }}{% else %}Find your answer by subject{% endif %}</h2>
+			</div>
+			<!-- topic-item -->
+			{% if users %}
+				{% for user in users %}
+				<div class="col-lg-4 col-sm-6 mb-4 rounded">
+					<div class="card">
+						<div class="card-body px-4 py-5 bg-white shadow text-center d-block match-height">
+							<a href="{{url_for('user.profile', username=user.username)}}">
+								<div class="mb-3">
+									<img src="https://randomuser.me/api/portraits/men/15.jpg" class="rounded" alt="...">
+								</div>
+								<h5 class="mb-3 mt-0">{{user.full_name}} <small class="badge badge-info">{{user.profile.status}}</small></h5>
+								<h6>@{{user.username}}</h6>
+								{% for skill in user.profile.skills %}
+									<a class="badge badge-primary" href="{{url_for('auth.index', skill=skill)}}">{{skill}}</a>
+								{% endfor %}
+							</a>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			{% endif %}
+		</div>
+	</div>
+</section>
+<!-- /topics -->
+
+<!-- call to action -->
+<section>
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section px-3 bg-white shadow text-center">
+					<h2 class="mb-4">Didn&rsquo;t find an answer to your question?</h2>
+					<p class="mb-4">Musce libero nunc, dignissim quis turpis quis, semper vehicula dolor. Suspendisse tincidunt
+						consequat quam.</p>
+					<a href="contact.html" class="btn btn-primary">contact us</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- /call to action -->
+{% endblock content %}

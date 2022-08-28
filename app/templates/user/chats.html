@@ -1,0 +1,32 @@
+{% extends 'layouts/main-layout.html' %}
+{% block content %}
+<div class="col-md-12">
+    <div class="d-flex align-items-center py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-10 mx-auto">
+                    <div class="card shadow-sm rounded">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h4 class="mb-3">Chats</h4>
+                            </div>
+                            <div class="list-group">
+                                {% if messages %}
+                                    {% for msg in messages %}
+                                        <div class="list-group-item list-group-item-action">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="mb-1">{{msg.sender}}</h5>
+                                            </div>
+                                            <p class="mb-1">{{msg.status}}</p>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,55 @@
+{% extends 'layouts/main-layout.html' %}
+{% block content %}
+<div class="col-md-12">
+    <div class="d-flex align-items-center py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-10 mx-auto">
+                    <div class="card shadow-sm rounded">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h4 class="mb-3">Work Experience</h4>
+                                {% if current_user.id == user.id %}
+                                    <i class="fas fa-plus" data-toggle="modal" data-target="#experienceModal"></i>
+                                    {% include 'user/experience-modal.html' %}
+                                {% endif %}
+                            </div>
+                            <div class="list-group">
+                                {% if experience %}
+                                    {% for exp in experience %}
+                                        <div class="list-group-item list-group-item-action">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="mb-1">{{exp.title}}</h5>
+                                                {% if current_user.id == user.id %}
+                                                    <small><a href="{{url_for('user.edit_experience', id=exp.id)}}"><i class="fas fa-pencil-alt"></i></a></small>
+                                                {% endif %}
+                                            </div>
+                                            <p class="mb-1">{{exp.organization}}</p>
+                                            <small class="text-muted">from {{exp.start_date}} to {% if exp.end_date %}{{exp.end_date}}{% else %}Present{% endif %}</small>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="clearfix mt-2">
+                                <small><a href="{{url_for('user.profile', username=user.username)}}" class="float-right">Back to Profile</a></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script>
+    $('#current').change(function(){
+        if ($('#current').is(':checked') == true){
+            $('#end-date').prop('disabled', true);
+        } else {
+            $('#end-date').prop('disabled', false);
+        }
+    });
+</script>
+{% endblock js %}

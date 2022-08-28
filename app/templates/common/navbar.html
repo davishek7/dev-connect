@@ -1,0 +1,70 @@
+<!-- header -->
+{% if add_skill and home %}
+<div class="alert alert-info alert-dismissible fade show text-center" role="alert">
+    <strong>Welcome, {{current_user.username}}!</strong> Please add your skills <a href="{{url_for('user.profile', username=current_user.username)}}" class="alert-link">here</a> so that recruiters can find you.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+{% endif %}
+<header class="banner overlay bg-cover" data-background="{{url_for('static' ,filename='images/banner.jpg')}}">
+    <nav class="navbar navbar-expand-md navbar-dark">
+        <div class="container">
+            <a class="navbar-brand px-2" href="{{url_for('auth.index')}}">Dev<i class="fas fa-link"></i>Connect</a>
+            <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navigation"
+                aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse text-center" id="navigation">
+                <ul class="navbar-nav ml-auto">
+                    {% if current_user %}
+                    <li class="nav-item {% if home %}active{% endif %}">
+                        <a class="nav-link" href="{{url_for('auth.index')}}"><i class="fas fa-home"></i> Home</a>
+                    </li>
+                    <li class="nav-item {% if profile %}active{% endif %}"> 
+                        <a class="nav-link" href="{{url_for('user.profile', username=current_user.username)}}"><i class="fas fa-user"></i> {{current_user.username}}</a>
+                    </li>
+                    <li class="nav-item {% if message %}active{% endif %}"> 
+                        <a class="nav-link" href="{{url_for('user.chats', user_id=current_user.id)}}"><i class="fas fa-envelope"></i> Messages {% if unread_msg_count %}<span class="badge badge-primary">{{unread_msg_count}}</span>{% endif %}</a>
+                    </li>
+                    {% if current_user.role == 'Hiring Manager' %}
+                        <li class="nav-item {% if home %}notification{% endif %}">
+                            <a class="nav-link" href="{{url_for('jobs.create')}}"></a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('auth.logout')}}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- banner -->
+    {% if home %}
+    <div class="container section">
+        <div class="row">
+            <div class="col-lg-8 text-center mx-auto">
+                <h1 class="text-white mb-3">Support Center &amp; Knowledge base</h1>
+                <p class="text-white mb-4">Search for Jobs and Developers</p>
+                <div class="position-relative">
+                    <form action="" method="post">
+                        {{form.hidden_tag()}}
+                        <div class="form-row">
+                            <div class="col-3">
+                                {{form.category(class="form-control search-el")}}
+                            </div>
+                            <div class="col-9">
+                                {{form.q(class="form-control search-el", placeholder="Search multiple skills separated by comma")}}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <!-- /banner -->
+</header>
+<!-- /header -->
