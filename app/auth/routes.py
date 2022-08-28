@@ -37,7 +37,7 @@ def register():
     form = RegisterForm()
     if form.validate_on_submit():
         user = {
-            'full_name': form.full_name.data,
+            'full_name': form.first_name.data + form.last_name.data,
             'username': form.username.data,
             'email': form.email.data,
             'hashed_password': bcrypt.generate_password_hash(form.password.data).decode('utf-8'),
@@ -48,7 +48,7 @@ def register():
         flash(
             f"Account for {user['username']} created successfully!", 'success')
         return redirect(url_for('auth.login'))
-    return render_template('auth/register.html', form=form)
+    return render_template('auth/register.html', form=form, register=True)
 
 
 @auth.route('/login/', methods=['GET', 'POST'])
@@ -64,7 +64,7 @@ def login():
             return redirect(url_for('auth.index'))
         else:
             flash('Please check your credentials.', 'danger')
-    return render_template('auth/login.html', form=form)
+    return render_template('auth/login.html', form=form, login=True)
 
 
 @auth.route('/logout/')

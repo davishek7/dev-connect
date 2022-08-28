@@ -1,16 +1,16 @@
 <!-- header -->
-{% if add_skill and home %}
-<div class="alert alert-info alert-dismissible fade show text-center" role="alert">
-    <strong>Welcome, {{current_user.username}}!</strong> Please add your skills <a href="{{url_for('user.profile', username=current_user.username)}}" class="alert-link">here</a> so that recruiters can find you.
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
+{% if add_skill and home and current_user.role == 'Developer' %}
+    <div class="alert alert-info alert-dismissible fade show text-center" role="alert">
+        <strong>Welcome, {{current_user.username}}!</strong> Please add your skills <a href="{{url_for('user.profile', username=current_user.username)}}" class="alert-link">here</a> so that recruiters can find you.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
 {% endif %}
 <header class="banner overlay bg-cover" data-background="{{url_for('static' ,filename='images/banner.jpg')}}">
     <nav class="navbar navbar-expand-md navbar-dark">
         <div class="container">
-            <a class="navbar-brand px-2" href="{{url_for('auth.index')}}">Dev<i class="fas fa-link"></i>Connect</a>
+            <a class="navbar-brand px-2" href="{{url_for('auth.index')}}">Dev<span class="text-info"><i class="fas fa-link"></i></span></i>Connect</a>
             <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navigation"
                 aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -30,7 +30,7 @@
                     </li>
                     {% if current_user.role == 'Hiring Manager' %}
                         <li class="nav-item {% if home %}notification{% endif %}">
-                            <a class="nav-link" href="{{url_for('jobs.create')}}"></a>
+                            <a class="nav-link" href="{{url_for('jobs.create')}}"><i class="fas fa-briefcase"></i> Post Job</a>
                         </li>
                     {% endif %}
                     <li class="nav-item">

@@ -34,20 +34,27 @@
 			<div class="d-flex align-items-center py-5">
 				<div class="container">
 					<div class="row">
-						<div class="col-12 col-lg-5 mx-auto">
-						<div class="card shadow-sm rounded">
-							<div class="card-body">
-								{% block content %}
+						<div class="col-12 col-lg-{% if login %}5{% elif register %}8{% endif %} mx-auto">
+							<div class="card shadow-sm rounded">
+								<div class="card-body">
+									<h3 class="mb-5 text-center">
+										Dev<span class="text-info"><i class="fas fa-link"></i></span></i>Connect
+									</h3>
+									{% block content %}
 
-								{% endblock content %}
+									{% endblock content %}
+								</div>
 							</div>
-						</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	{% block js %}
+
+	{% endblock js %}
 
 	{% include 'common/footer.html' %}
 

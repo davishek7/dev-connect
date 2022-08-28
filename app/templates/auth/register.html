@@ -2,51 +2,78 @@
 {% block content %}
 <form action="" method="post">
     {{form.hidden_tag()}}
-    <div class="form-group mb-3">
-        <label for="">{{form.full_name.label}}</label>
-        {{form.full_name(class='form-control form-control-custom rounded', placeholder='Enter your name')}}
-        {% for error in form.full_name.errors %}
-            <small class="text-danger">{{ error }}</small>
-        {% endfor %}
-    </div>
-    <div class="form-group mb-3">
-        <label for="">{{form.email.label}}</label>
-        {{form.email(class='form-control form-control-custom rounded', placeholder='Enter your email')}}
-        {% for error in form.email.errors %}
-            <small class="text-danger">{{ error }}</small>
-        {% endfor %}
-    </div>
-    <div class="form-group mb-3">
-        <label for="">{{form.username.label}}</label>
-        {{form.username(class='form-control rounded', placeholder='Enter your username')}}
-        {% for error in form.username.errors %}
-            <small class="text-danger">{{ error }}</small>
-        {% endfor %}
-    </div>
-
-    <div class="form-group mb-3">
-        <label for="">{{form.password.label}}</label>
-        {{form.password(class='form-control rounded', placeholder='Password')}}
-        {% for error in form.password.errors %}
-            <small class="text-danger">{{ error }}</small>
-        {% endfor %}
-    </div>
-
-    <div class="form-group mb-3">
-        <label for="">{{form.confirm_password.label}}</label>
-        {{form.confirm_password(class='form-control rounded', placeholder='Confirm password')}}
-        {% for error in form.confirm_password.errors %}
-            <small class="text-danger">{{ error }}</small>
-        {% endfor %}
-    </div>
-    <div class="form-group mb-3">
-        <label for="">Register as</label>
-        {{form.role(class='form-control rounded selectpicker')}}
-        {% for error in form.role.errors %}
-            <small class="text-danger">{{ error }}</small>
-        {% endfor %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group mb-3">
+                <label for="">{{form.first_name.label}}</label>
+                {{form.first_name(class='form-control form-control-custom rounded', placeholder='Enter your first name')}}
+                {% for error in form.first_name.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group mb-3">
+                <label for="">{{form.last_name.label}}</label>
+                {{form.last_name(class='form-control form-control-custom rounded', placeholder='Enter your last name')}}
+                {% for error in form.last_name.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group mb-3">
+                <label for="">{{form.email.label}}</label>
+                {{form.email(class='form-control form-control-custom rounded', placeholder='Enter your email')}}
+                {% for error in form.email.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group mb-3">
+                <label for="">{{form.username.label}}</label>
+                {{form.username(class='form-control rounded', placeholder='Enter your username')}}
+                {% for error in form.username.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group mb-3">
+                <label for="">{{form.password.label}}</label>
+                {{form.password(class='form-control rounded', placeholder='Password')}}
+                {% for error in form.password.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group mb-3">
+                <label for="">{{form.confirm_password.label}}</label>
+                {{form.confirm_password(class='form-control rounded', placeholder='Confirm password')}}
+                {% for error in form.confirm_password.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group mb-3">
+                <label for="">Register as</label>
+                {{form.role(class='form-control rounded selectpicker', id='role')}}
+                {% for error in form.role.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                {% endfor %}
+            </div>
+        </div>
     </div>
     {{form.submit(class='btn btn-info btn-block mb-2 rounded')}}
+    <p class="text-center">Already have an account? <a href="{{url_for('auth.login')}}">Login</a></p>
 </form>
-<p class="text-center">Already have an account? <a href="{{url_for('auth.login')}}">Login</a></p>
 {% endblock content %}
+
+{% block js %}
+<script>
+    $('#role').attr('data-live-search', true)
+</script>
+{% endblock js %}

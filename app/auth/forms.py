@@ -18,7 +18,8 @@ class LoginForm(FlaskForm):
             raise ValidationError('Please check your credentials.')
 
 class RegisterForm(FlaskForm):
-    full_name = StringField('Full Name', validators=[DataRequired()])
+    first_name = StringField('First Name', validators=[DataRequired()])
+    last_name = StringField('Last Name', validators=[DataRequired()])
     email = EmailField('Email', validators=[DataRequired()])
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
