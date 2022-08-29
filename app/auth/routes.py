@@ -5,6 +5,7 @@ from .forms import LoginForm, RegisterForm, SearchForm
 from ..extensions import bcrypt
 from .service import UserService
 from app.user.service import ProfileService
+from app.jobs.service import JobService
 
 
 @auth.route('/', defaults={'skill': None}, methods=['GET', 'POST'])
@@ -13,6 +14,7 @@ from app.user.service import ProfileService
 def index(skill=None):
     form = SearchForm()
     users = []
+    jobs = []
     search_term = ''
     result_count = 0
     if form.validate_on_submit():
@@ -22,13 +24,16 @@ def index(skill=None):
             users = UserService.search(search_term)
             for user in users:
                 user['profile'] = ProfileService().get_by_user_id(user['id'])
+            result_count = len(users)
+        if category == 'job':
+            jobs = JobService.search(search_term)
+            result_count = len(jobs)
     elif skill:
         search_term = skill
         users = UserService.search(search_term)
         for user in users:
             user['profile'] = ProfileService().get_by_user_id(user['id'])
-    result_count = len(users)
-    return render_template('index.html', home=True, form=form, users=users, search_term=search_term, result_count=result_count)
+    return render_template('index.html', home=True, form=form, users=users, jobs=jobs, search_term=search_term, result_count=result_count)
 
 
 @auth.route('/register/', methods=['GET', 'POST'])
@@ -41,7 +46,8 @@ def register():
             'username': form.username.data,
             'email': form.email.data,
             'hashed_password': bcrypt.generate_password_hash(form.password.data).decode('utf-8'),
-            'role': form.role.data
+            'role': form.role.data,
+            'bookmarks': []
         }
         created_user = UserService().create_user(user)
         ProfileService().create({'user_id':created_user['inserted_hashes'][0], 'skills':[]})

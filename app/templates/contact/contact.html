@@ -1,0 +1,25 @@
+{% extends 'layouts/main-layout.html' %}
+{% block content %}
+
+<!-- contact -->
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="section-title text-primary">Got Any Suggestions</h2>
+
+                <form action="" method="post">
+                    {{form.hidden_tag()}}
+                    {{form.name(placeholder="Name", class="form-control mb-4 shadow rounded")}}
+                    {{form.email(placeholder="Email", class="form-control mb-4 shadow rounded")}}
+                    {{form.subject(placeholder="Subject", class="form-control mb-4 shadow rounded")}}
+                    {{form.message(placeholder="Message", class="form-control mb-4 shadow rounded", rows="5")}}
+                    <button type="submit" value="send" class="btn btn-primary btn-lg">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /contact -->
+
+{% endblock content %}

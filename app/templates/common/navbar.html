@@ -29,8 +29,12 @@
                         <a class="nav-link" href="{{url_for('user.chats', user_id=current_user.id)}}"><i class="fas fa-envelope"></i> Messages {% if unread_msg_count %}<span class="badge badge-primary">{{unread_msg_count}}</span>{% endif %}</a>
                     </li>
                     {% if current_user.role == 'Hiring Manager' %}
-                        <li class="nav-item {% if home %}notification{% endif %}">
+                        <li class="nav-item {% if home %}job{% endif %}">
                             <a class="nav-link" href="{{url_for('jobs.create')}}"><i class="fas fa-briefcase"></i> Post Job</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item {% if home %}job{% endif %}">
+                            <a class="nav-link" href="{{url_for('jobs.job_list')}}"><i class="fas fa-briefcase"></i> Jobs</a>
                         </li>
                     {% endif %}
                     <li class="nav-item">
@@ -46,7 +50,7 @@
     <div class="container section">
         <div class="row">
             <div class="col-lg-8 text-center mx-auto">
-                <h1 class="text-white mb-3">Support Center &amp; Knowledge base</h1>
+                <h1 class="text-white mb-3">Dev<span class="text-info"><i class="fas fa-link"></i></span></i>Connect</a></h1>
                 <p class="text-white mb-4">Search for Jobs and Developers</p>
                 <div class="position-relative">
                     <form action="" method="post">

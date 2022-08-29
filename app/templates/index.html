@@ -5,7 +5,7 @@
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-12 text-center">
-				<h2 class="section-title">{% if search_term %}{{result_count}} result{% if result_count> 1 %}s{% endif %} found for {{ search_term }}{% else %}Find your answer by subject{% endif %}</h2>
+				<h2 class="section-title">{% if search_term %}{{result_count}} result{% if result_count> 1 %}s{% endif %} found for {{ search_term }}{% else %}Best place to find skilled devs{% endif %}</h2>
 			</div>
 			<!-- topic-item -->
 			{% if users %}
@@ -17,8 +17,8 @@
 								<div class="mb-3">
 									<img src="https://randomuser.me/api/portraits/men/15.jpg" class="rounded" alt="...">
 								</div>
-								<h5 class="mb-3 mt-0">{{user.full_name}} <small class="badge badge-info">{{user.profile.status}}</small></h5>
-								<h6>@{{user.username}}</h6>
+								<div class="card-title mb-3 mt-0">{{user.full_name}} <small class="badge badge-info">{{user.profile.status}}</small></div>
+								<div class="card-subtitle">@{{user.username}}</div>
 								{% for skill in user.profile.skills %}
 									<a class="badge badge-primary" href="{{url_for('auth.index', skill=skill)}}">{{skill}}</a>
 								{% endfor %}
@@ -27,6 +27,35 @@
 					</div>
 				</div>
 				{% endfor %}
+			{% elif jobs %}
+					{% for job in jobs %}
+					<div class="col-lg-4 col-sm-6 mb-4">
+						<div class="card rounded bg-light shadow">
+							<div class="card-body px-5 py-5 text-center d-block match-height">
+								<a href="#">
+									<div class="mb-3">
+										<i class="fas fa-briefcase" style="font-size:72px;color:rgb(3, 3, 59);"></i>
+									</div>
+									<div class="card-title mb-3 mt-0">{{job.title}} <small class="badge badge-info">{{job.job_type}}</small></div>
+									<div class="card-subtitle">{{job.company}} - {{job.emp_type}}</div>
+									<div class="mb-3">
+										{% for skill in job.skills %}
+											<a class="badge badge-primary" href="{{url_for('auth.index', skill=skill)}}">{{skill}}</a>
+										{% endfor %}
+									</div>
+									<div class="row">
+										<div class="col-6">
+											<a href="{{url_for('jobs.details', id=job.id)}}" class="btn btn-outline-primary btn-block"><i class="fas fa-eye"></i> View Job</a>
+										</div>
+										<div class="col-6">
+											<a href="#" class="btn btn-outline-info btn-block"><i class="fas fa-bookmark"></i> Save</a>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
 			{% endif %}
 		</div>
 	</div>
@@ -39,10 +68,9 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="section px-3 bg-white shadow text-center">
-					<h2 class="mb-4">Didn&rsquo;t find an answer to your question?</h2>
-					<p class="mb-4">Musce libero nunc, dignissim quis turpis quis, semper vehicula dolor. Suspendisse tincidunt
-						consequat quam.</p>
-					<a href="contact.html" class="btn btn-primary">contact us</a>
+					<h2 class="mb-4">Can&rsquo;t find your skillset in our listed skills?</h2>
+					<p class="mb-4">Cantact us using the below link. We will add your preferred skillset as soon as possible.</p>
+					<a href="{{url_for('contact.contact')}}" class="btn btn-primary">contact us</a>
 				</div>
 			</div>
 		</div>

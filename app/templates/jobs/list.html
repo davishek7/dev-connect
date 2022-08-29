@@ -1,0 +1,48 @@
+{% extends 'layouts/main-layout.html' %}
+{% block content %}
+<section class="section">
+	<div class="container">
+		<div class="text-center">
+			<h2 class="section-title">Posted Jobs</h2>
+		</div>
+		<div class="row row-cols-1 row-cols-md-3">
+			<!-- topic-item -->
+			{% if jobs %}
+				{% for job in jobs %}
+					<div class="col mb-4">
+						<div class="card rounded bg-light shadow">
+							<i class="fas fa-briefcase card-img-top text-center" style="font-size:96px;color:rgb(3, 3, 59);"></i>
+							<div class="card-body d-block match-height">
+								<div class="card-title mb-3 mt-0">{{job.title}} <small class="badge badge-info">{{job.job_type}}</small></div>
+								<div class="card-subtitle mb-3">{{job.company}} - {{job.emp_type}}</div>
+								<div class="card-text mb-3">
+									{% for skill in job.skills %}
+										<small class="badge badge-primary">{{skill}}</small>
+									{% endfor %}
+								</div>
+								<div class="row card-text mt-2">
+									<div class="col-6">
+										<a href="{{url_for('jobs.details', id=job.id)}}" class="btn btn-outline-primary btn-sm btn-block"><i class="fas fa-eye"></i> View Job</a>
+									</div>
+									<div class="col-6">
+										<a href="{{url_for('jobs.bookmark', id=job.id)}}" class="btn btn-outline-info btn-sm btn-block">
+											{% if job.id in current_user.bookmarks %}
+											<i class="fas fa-check"></i> Saved
+											{% else %}
+											<i class="fas fa-bookmark"></i> Save
+											{% endif %}
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="card-footer">
+								<small class="text-muted">Posted on {{job.__createdtime__}}</small>
+							</div>						  
+						</div>
+					</div>
+				{% endfor %}
+			{% endif %}
+		</div>
+	</div>
+</section>
+{% endblock content %}

@@ -3,12 +3,15 @@ from flask import session
 from ..database import db, SCHEMA
 
 
-def format_messages(data):
+def format_create_time(data, many=False):
 
-    for _ in range(len(data)):
-        data[_]['__createdtime__'] = datetime.fromtimestamp(data[_]['__createdtime__']/1000).strftime('%d-%m-%Y %I:%M %p')
-
-    return data
+    if many:
+        for _ in range(len(data)):
+            data[_]['__createdtime__'] = datetime.fromtimestamp(data[_]['__createdtime__']/1000).strftime('%d-%m-%Y %I:%M %p')
+        return data
+    else:
+        data['__createdtime__'] = datetime.fromtimestamp(data['__createdtime__']/1000).strftime('%d-%m-%Y %I:%M %p')
+        return data
 
 def format_chat_list(data):
 

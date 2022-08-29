@@ -1,5 +1,5 @@
 from ..database import db, SCHEMA
-# from app.user.service import ProfileService
+from flask import session
 
 class User:
 
@@ -21,13 +21,16 @@ class User:
     @classmethod
     def search(cls, value):
         users = cls.get_all()
+        users = list(filter(lambda d : d['id'] != session['user']['id'], users))
         results = []
+        values = value.split(',')
         for user in users:
             profile = db.search_by_value(SCHEMA, 'profile', 'user_id', [user['id']])
             if len(profile) > 0:
                 for skill in profile[0]['skills']:
-                    if value.lower() in skill.lower():
-                        results.append(user)
+                    for _value in values:
+                        if _value.lower() in skill.lower():
+                            results.append(user)
         return results
 
 

@@ -35,7 +35,15 @@ class UserService:
     def get_all(cls):
         return cls.model_name.get_all()
 
-    def add_skills(self, user_id, skills):
-        if isinstance(skills, dict):
-            skills = [skills]
-        return self.update_user(user_id, {'skills':skills})
+    def bookmark(self, id, job_id):
+        user = self.get_user(id)[0]
+        action = 'add'
+        if 'bookmarks' not in user:
+            user['bookmarks'] = []
+        if job_id not in user['bookmarks']:
+            user['bookmarks'].append(job_id)
+        else:
+            user['bookmarks'].remove(job_id)
+            action = 'remove'
+        self.update_user(id, user)
+        return user['bookmarks'], action

@@ -1,0 +1,104 @@
+{% extends 'layouts/main-layout.html' %}
+{% block content %}
+<div class="col-md-12">
+    <div class="d-flex align-items-center py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-8 mx-auto">
+                    <div class="card shadow-sm rounded">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h4 class="mb-3">Job Details</h4>
+                            </div>
+                            <form action="" method="post">
+                                {{form.hidden_tag()}}
+                                <div class="form-group mb-3">
+                                  <label class="col-form-label">{{form.title.label}}</label>
+                                  {{form.title(class='form-control', placeholder='Title')}}
+                                  {% for error in form.title.errors %}
+                                    <small class="text-danger">{{ error }}</small>
+                                  {% endfor %}
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="col-form-label">{{form.company.label}}</label>
+                                    {{form.company(class='form-control', placeholder='Company')}}
+                                    {% for error in form.company.errors %}
+                                      <small class="text-danger">{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">{{form.location.label}}</label>
+                                    {{form.location(class='form-control', placeholder='Location')}}
+                                    {% for error in form.location.errors %}
+                                        <small class="text-danger">{{ error }}</small>
+                                    {% endfor %}
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-form-label">{{form.job_type.label}}</label>
+                                    {{form.job_type(class='form-control selectpicker')}}
+                                    {% for error in form.job_type.errors %}
+                                        <small class="text-danger">{{ error }}</small>
+                                    {% endfor %}
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-form-label">{{form.emp_type.label}}</label>
+                                    {{form.emp_type(class='form-control selectpicker')}}
+                                    {% for error in form.emp_type.errors %}
+                                        <small class="text-danger">{{ error }}</small>
+                                    {% endfor %}
+                                </div>  
+                                <div class="form-group">
+                                    <label class="col-form-label">{{form.skills.label}}</label>
+                                    {{form.skills(class='form-control selectpicker')}}
+                                    {% for error in form.skills.errors %}
+                                        <small class="text-danger">{{ error }}</small>
+                                    {% endfor %}
+                                </div>     
+                                <div class="form-group">
+                                    <label class="col-form-label">{{form.description.label}}</label>
+                                    {{form.description(class='form-control', placeholder='Description', id='summernote')}}
+                                    {% for error in form.description.errors %}
+                                        <small class="text-danger">{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                      {{form.submit(class='btn btn-primary btn-block')}}
+                                    </div>
+                                    <div class="col">
+                                      <button type="button" class="btn btn-outline-info btn-block" onclick="goBack()">Back</button>
+                                    </div>
+                                </div> 
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script>
+    $('.selectpicker').attr("data-live-search","true");
+
+    $('#summernote').summernote({
+        tabsize: 2,
+        height: 120,
+        toolbar: [
+          ['style', ['style']],
+          ['font', ['bold', 'underline', 'clear']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['table', ['table']],
+          ['insert', ['link']],
+          ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+    });
+
+    function goBack() {
+        window.history.back();
+    }
+</script>
+{% endblock js %}

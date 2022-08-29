@@ -8,12 +8,13 @@ from app.auth.service import UserService
 
 
 SKILL_CHOICES = {
-    'Backend':['flask', 'expressjs', 'django', 'Laravel', 'Spring Boot', 'FastAPI', 'Nextjs', 'Nestjs', 'Nuxtjs'],
+    'Backend':['flask', 'expressjs', 'django', 'Laravel', 'Ruby on Rails', 'Spring Boot', 'FastAPI', 'Nextjs', 'Nestjs', 'Nuxtjs'],
     'Frontend':['Reactjs', 'Vuejs', 'Angular', 'Svelte'],
     'Mobile':['Android', 'iOS', 'React Native', 'Flutter', 'Ionic'],
     'Language':['Python', 'Java', 'Javascript', 'Ruby', 'PHP', 'Typescript', 'C', 'C++', 'Go', 'Rust', 'Dart', 'Swift', 'Kotlin'],
-    'Database':['PostgreSQL', 'MySQL', 'MongoDB', 'HarperDB', 'SQLite'],
-    'Cloud Tech':['Amazon Web Services', 'Google Cloud Platform', 'Digital Ocean', 'Microsoft Azure', 'Linode', 'Netlify', 'Vercel', 'Railway', 'Heroku 🥲']
+    'Database':['PostgreSQL', 'MySQL', 'MongoDB', 'HarperDB', 'Redis', 'SQLite'],
+    'Cloud Tech':['Amazon Web Services', 'Google Cloud Platform', 'Digital Ocean', 'Microsoft Azure', 'Linode', 'Netlify', 'Vercel', 'Railway', 'Heroku 🥲'],
+    'Container':['Docker', 'Kubernetes']
 }
 
 STATUS_CHOICES = [('', 'Select Status'), ('Open to work', 'Open to Work'), ('Busy', 'Busy')]

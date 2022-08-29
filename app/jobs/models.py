@@ -1,20 +1,23 @@
 from ..database import db, SCHEMA
+from flask import session
+from app.user.utils import format_create_time
 
 class Job:
 
     table = 'job'
 
-    def create(self, job_list):
-        return db.insert(SCHEMA, self.table, job_list)
+    def create(self, data):
+        return db.insert(SCHEMA, self.table, data)
 
-    def update(self, job_list):
-        return db.update(SCHEMA, self.table, job_list)
+    def update(self, data):
+        return db.update(SCHEMA, self.table, data)
 
     def delete(self, id):
         return db.delete(SCHEMA, self.table, [id])
 
     def get(self, id):
-        return db.search_by_hash(SCHEMA, self.table, [id], get_attributes=['*'])
+        job = db.search_by_hash(SCHEMA, self.table, [id], get_attributes=['*'])[0]
+        return format_create_time(job)
 
     @classmethod
     def get_user_by_attr(cls, attribute, value):
@@ -22,11 +25,18 @@ class Job:
 
     @classmethod
     def search(cls, value):
-        users = cls.get_all()
-        results = [user for user in users if user['skills'] is not None and value in user['skills']]
+        jobs = cls.get_all()
+        values = value.split(',')
+        jobs = list(filter(lambda d : d['owner'] != session['user']['id'], jobs))
+        results = []
+        for job in jobs:
+            for skill in job['skills']:
+                for _value in values:
+                    if _value.lower() in skill.lower():
+                        results.append(job)
         return results
 
     @classmethod
     def get_all(cls):
-        return db.sql(f'SELECT id, email, username, role, skills, __createdtime__, __updatedtime__ FROM {SCHEMA}.{cls.table}')
-
+        jobs = db.sql(f'SELECT id, title, company, emp_type, owner, job_type, location, description, skills, __createdtime__, __updatedtime__ FROM {SCHEMA}.{cls.table} ORDER BY __createdtime__')
+        return format_create_time(jobs, many=True)

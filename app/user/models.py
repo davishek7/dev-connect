@@ -1,6 +1,6 @@
 from datetime import datetime
 from ..database import db, SCHEMA
-from .utils import format_chat_list, format_messages
+from .utils import format_chat_list, format_create_time
 
 
 class Profile:
@@ -54,7 +54,7 @@ class Chat:
 
     def get_user_messages(self, receiver_id, sender_id):
         messages = db.sql(f"SELECT * FROM {SCHEMA}.{self.table} WHERE (receiver_id='{receiver_id}' AND sender_id='{sender_id}') OR (receiver_id='{sender_id}' AND sender_id='{receiver_id}') ORDER BY __createdtime__ ASC")
-        return format_messages(messages)
+        return format_create_time(messages, many=True)
 
     def get_unread_messages(self, receiver_id):
         messages = db.sql(f"SELECT * FROM {SCHEMA}.{self.table} WHERE receiver_id='{receiver_id}' AND status='unread' ORDER BY __createdtime__ ASC")

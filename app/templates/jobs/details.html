@@ -1,0 +1,61 @@
+{% extends 'layouts/main-layout.html' %}
+{% block content %}
+<section class="single section-sm pb-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card shadow">
+                    <div class="card-body text-center">
+                        <h3 class="mb-3">
+                            Job posted by
+                        </h3>
+                        <div class="mb-3">
+                            <img src="https://randomuser.me/api/portraits/men/15.jpg" class="rounded" alt="...">
+                        </div>
+                        <h5>{{user.full_name}}</h5> 
+                        <h6>@{{user.username}}</h6>
+                        <a href="{{url_for('user.profile', username=user.username)}}" class="btn btn-outline-info"><i class="fas fa-comment"></i> Message</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <div class="p-lg-5 p-4 bg-white">
+                            <h3 class="mb-2">{{job.title}} <small class="badge badge-info">{{job.job_type}}</small></h3>
+                            <h4 class="mb-5">{{job.company}} ({{job.emp_type}})</h4>
+                            <h5 class="mb-3">Description</h5>
+                            <p class="mb-3">{{job.description|safe}}</p>
+                            <h5 class="mb-3">Skills</h5>
+                            <div class="card-text mb-3">
+                                {% for skill in job.skills %}
+                                    <small class="badge badge-primary">{{skill}}</small>
+                                {% endfor %}
+                            </div>
+                            <p class="post-meta border-bottom pb-3 mb-0 mt-3">Posted on {{job.__createdtime__}}</p>
+                            <div class="row card-text mt-2">
+                                <div class="col-6">
+                                    {% if current_user.id in job.applicants %}
+                                        <button class="btn btn-link text-success" disabled><i class="fas fa-check"></i> Already applied to the job</button>
+                                    {% else %}
+                                        <a href="{{url_for('jobs.apply', id=job.id)}}" class="btn btn-outline-primary btn-sm btn-block"><i class="fas fa-user-check"></i> Apply</a>
+                                    {% endif %}
+                                </div>
+                                <div class="col-6">
+                                    <a href="{{url_for('jobs.bookmark', id=job.id)}}" class="btn btn-outline-info btn-sm btn-block">
+                                        {% if job.id in current_user.bookmarks %}
+                                        <i class="fas fa-check"></i> Saved
+                                        {% else %}
+                                        <i class="fas fa-bookmark"></i> Save
+                                        {% endif %}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
