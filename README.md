@@ -1,12 +1,10 @@
 # Dev<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/link.svg" style="color:red" width="32">Connect developed by Avishek Das
 
-![Overview video](/assets/gifs/inventory.gif)
-
 ### Homepage
-![Homepage](/assets/images/location.png)
+![Homepage](/assets/images/home_screen.png)
 
 ### Developer Search
-![Developer Search](/assets/images/search.png)
+![Developer Search](/assets/images/dev_search.png)
 
 ### Login Page
 ![Login](/assets/images/login.png)
@@ -20,8 +18,17 @@
 ### User Chat with others
 ![User Chat](/assets/images/user_chat.png)
 
-### Add Location
-![Add Location](/assets/images/add_location.png)
+### Job Search
+![Add Location](/assets/images/job_search.png)
 
-### Product List
-![Product List](/assets/images/product_list.png)
+### Job Details
+![Product List](/assets/images/job_details.png)
+
+### Job List
+![Product List](/assets/images/job_list.png)
+
+### Job Apply
+![Product List](/assets/images/job_apply.png)
+
+### Job Bookmark
+![Product List](/assets/images/job_bookmark.png)
