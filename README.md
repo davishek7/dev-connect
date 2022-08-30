@@ -96,6 +96,17 @@ DevConnect, the best place for finding skilled Developers. Users can register wi
 
 ***
 
+### Accounts for testing the app
+
++ Developer
+    - email - davishek7@gmail.com
+    - password - 1234
+
++ Hiring Manager
+    - email - canavi048@gmail.com
+    - password - 1234
+---
+
 ### For more on Flask Application Factory pattern
 
 [Video](https://youtu.be/EdPutNyIHRw) | [Github](https://github.com/davishek7/flask-application-factory)
