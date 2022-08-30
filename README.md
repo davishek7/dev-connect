@@ -36,16 +36,16 @@ DevConnect, the best place for finding skilled Developers. Users can register wi
 ## Folders and File structure
 
 + app/ - folder holds the main application
-+ app/auth/ - holds the logic related to authentication and search
-+ app/user/ - all user related stuff
-+ app/jobs/ - all the logics for job feature
-+ app/contact/ - for contact
-+ app/templates/ - frontend HTML files
-+ app/static/ - holds all the static files
-+ app/\_\_init__.py - it contains the flask application factory
-+ app/database.py - holds the harperDB connection
-+ app/context_processor.py - custom context for jinja2 templates
-+ app/extensions.py - flask extensions used on the project
+    - app/auth/ - holds the logic related to authentication and search
+    - app/user/ - all user related stuff
+    - app/jobs/ - all the logics for job feature
+    - app/contact/ - for contact
+    - app/templates/ - frontend HTML files
+    - app/static/ - holds all the static files
+    - app/\_\_init__.py - it contains the flask application factory
+    - app/database.py - holds the harperDB connection
+    - app/context_processor.py - custom context for jinja2 templates
+    - app/extensions.py - flask extensions used on the project
 + config.py - app configurations i.e. secret key etc.
 + runserver.py - file for running the application
 ---
@@ -96,6 +96,9 @@ DevConnect, the best place for finding skilled Developers. Users can register wi
 
 ### Job Details
 ![Job Details](/assets/images/job_details.png)
+
+### Job Create
+![Job Create](/assets/images/adding_job.png)
 
 ### Job List
 ![Job List](/assets/images/job_list.png)

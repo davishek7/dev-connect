@@ -11,7 +11,7 @@ def create_app():
 
     app.context_processor(common_context)
 
-    # csrf.init_app(app)
+    csrf.init_app(app)
     bcrypt.init_app(app)
     toastr.init_app(app)
 

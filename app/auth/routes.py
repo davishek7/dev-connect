@@ -63,7 +63,6 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = UserService().get_user_by_attr('email', form.email.data)
-        print(user)
         if user and bcrypt.check_password_hash(user[0]['hashed_password'], form.password.data):
             session['user'] = user[0]
             flash(f"Welcome, {session['user']['username']}", 'success')
