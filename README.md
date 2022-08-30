@@ -51,6 +51,7 @@ DevConnect, the best place for finding skilled Developers. Users can register wi
 ---
 ## Live Url
 
+[DevConnect](https://dev-connect.up.railway.app/) on Railway
 [DevConnect](https://dev-connect-flask.herokuapp.com/) on Heroku 😒
 
 ### Accounts for testing the app
