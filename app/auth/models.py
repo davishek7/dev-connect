@@ -24,12 +24,13 @@ class User:
         users = list(filter(lambda d : d['id'] != session['user']['id'], users))
         results = []
         values = value.split(',')
+        print(values)
         for user in users:
-            profile = db.search_by_value(SCHEMA, 'profile', 'user_id', [user['id']])
-            if len(profile) > 0:
-                for skill in profile[0]['skills']:
+            profile = db.search_by_value(SCHEMA, 'profile', 'user_id', [user['id']])[0]
+            if profile:
+                for skill in profile['skills']:
                     for _value in values:
-                        if _value.lower() in skill.lower():
+                        if _value.lower().strip() in skill.lower() and user not in results:
                             results.append(user)
         return results
 

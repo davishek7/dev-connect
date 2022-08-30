@@ -27,12 +27,13 @@ class Job:
     def search(cls, value):
         jobs = cls.get_all()
         values = value.split(',')
+        print(values)
         jobs = list(filter(lambda d : d['owner'] != session['user']['id'], jobs))
         results = []
         for job in jobs:
             for skill in job['skills']:
                 for _value in values:
-                    if _value.lower() in skill.lower():
+                    if _value.lower().strip() in skill.lower() and job not in results:
                         results.append(job)
         return results
 
