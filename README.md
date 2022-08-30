@@ -48,10 +48,21 @@ DevConnect, the best place for finding skilled Developers. Users can register wi
 + app/extensions.py - flask extensions used on the project
 + config.py - app configurations i.e. secret key etc.
 + runserver.py - file for running the application
-
+---
 ## Live Url
 
 [DevConnect](https://dev-connect-flask.herokuapp.com/) on Heroku 😒
+
+### Accounts for testing the app
+
++ Developer
+    - email - davishek7@gmail.com
+    - password - 1234
+
++ Hiring Manager
+    - email - canavi048@gmail.com
+    - password - 1234
+---
 
 ## Images for preview
 
@@ -95,17 +106,6 @@ DevConnect, the best place for finding skilled Developers. Users can register wi
 ![Job Bookmark](/assets/images/job_bookmark.png)
 
 ***
-
-### Accounts for testing the app
-
-+ Developer
-    - email - davishek7@gmail.com
-    - password - 1234
-
-+ Hiring Manager
-    - email - canavi048@gmail.com
-    - password - 1234
----
 
 ### For more on Flask Application Factory pattern
 
